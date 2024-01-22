@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Find an Area of your triangle!</title>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Enter the sides of your triangle and find out it's Area!</h1>
+
+  <div class="wrapper">
+    <div class="input-fields">
+      <p>*use dot "." for the decimals</p>
+      <label for="side1"><input id="side1" type="text">(cm) - First side</label>
+      <label for="side2"> <input id="side2" type="text">(cm) - Second side</label>
+      <label for="side3"><input id="side3" type="text">(cm) - Third side</label>
+
+      <button onclick="calculate()">Calculate</button>
+    </div>
+    
+    <div class="output">
+      <p>The area is:</p><span id="span"></span>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+
+  function calculate(){
+    const side1 = +document.getElementById('side1').value
+    const side2 = +document.getElementById('side2').value
+    const side3 = +document.getElementById('side3').value
+
+    const semiPerimeter = (side1 + side2 + side3)/2
+
+    let area;
+    let result;
+    if (side1 + side2 > side3 && side2 + side3 > side1 && side3 + side1 > side2){
+      area = Math.sqrt(semiPerimeter*(semiPerimeter - side1)*(semiPerimeter - side2)*(semiPerimeter - side3))
+      result = (Math.round(area*100))/100
+
+      const areaTest = (Math.round(area*1000))/1000
+      let appr = '';
+      if (String(areaTest).at(-4) == '.'){
+        appr = '~ '
+      }
+    
+      document.querySelector('.output span').innerHTML = `${appr}${result}cm<sup>2</sup>`
+
+    }else if (!side1 | !side2 | !side3){
+      document.querySelector('.output span').innerHTML = 'Please, fill all the fields with numbers greater than 0'
+    }else{
+      document.querySelector('.output span').innerHTML = 'Make sure that the sum of any two sides is greater than the third side'
+    }
+
+    
+  }
+
+
+</script>
+
+</body>
+
+</html>
